@@ -160,11 +160,10 @@ body {
 }
 
 #ascii-art {
-  font-size: 12px;
+  font-size: 1vw;
   line-height: 1.15;
   white-space: pre;
   color: var(--fg);
-  zoom: 0.3;
 }
 
 #new-workout-btn {
