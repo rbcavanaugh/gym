@@ -71,7 +71,11 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  pointer-events: none;
+  background: none;
+  border: none;
+  color: var(--fg);
+  cursor: pointer;
+  font-family: inherit;
 }
 
 
@@ -180,7 +184,7 @@ body {
 
 #ascii-art {
   font-size: 1.1vw;
-  line-height: 1.15;
+  line-height: 1.22;
   white-space: pre;
   color: var(--fg);
 }

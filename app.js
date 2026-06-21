@@ -627,6 +627,8 @@ async function init() {
     showView('select');
   });
 
+  document.getElementById('app-title').addEventListener('click', () => showView('home'));
+
   document.getElementById('hamburger').addEventListener('click', () => {
     const isOpen = !document.getElementById('nav-menu').classList.contains('hidden');
     isOpen ? closeMenu() : openMenu();
