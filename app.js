@@ -571,6 +571,10 @@ function initPullToRefresh() {
 }
 
 async function triggerPWAUpdate() {
+  if ('caches' in window) {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(k => caches.delete(k)));
+  }
   if ('serviceWorker' in navigator) {
     const reg = await navigator.serviceWorker.getRegistration();
     if (reg) await reg.update();
