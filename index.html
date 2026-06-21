@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="GYM">
+  <meta name="theme-color" content="#ffffff" id="meta-theme">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>GYM</title>
+</head>
+<body>
+  <div id="app">
+
+    <header id="top-bar">
+      <button id="hamburger">&#9776;</button>
+      <span id="app-title">GYM</span>
+    </header>
+
+    <nav id="nav-menu" class="hidden">
+      <button class="nav-item" data-view="home">Home</button>
+      <button class="nav-item" data-view="select">Select</button>
+      <button class="nav-item" data-view="workout">Workout</button>
+      <button class="nav-item" data-view="settings">Settings</button>
+    </nav>
+    <div id="nav-overlay" class="hidden"></div>
+
+    <main id="views">
+
+      <div id="view-home" class="view">
+        <div id="ascii-wrapper">
+<pre id="ascii-art">
+      .@@@@-                                                                          -@@@@.
+        -  @@                                                                         .@@  =
+       +.   @                                                                          @.   =
+       @. . @                                                                         .@.   @
+       @.   @        . ..                                                  . ..        @.   @.
+@@@@@@@@.   @@.  . . .@@-  ....   ...    ..............   . ..  ... ....   @@@.   .  .@@   .@@@@@@@@
+@@@@@@@@=   @@@@%:...@@@%--:..                                       ..:::-@@@@. .:*@@@@  .=@@@@@@@@
+        #   @     .@ @@%.                                                   @@@.@      @   #.
+        @   @        .@@@                                                  @@= +       @   @
+        @   @.       .  .@                    . . . -.                    *.          .@  .@
+       .@  .@        .. . .@                  .       .                 @ ..           @.  @
+        @@@@@           @     @..           .%        *              @   ..@.          @@@@@
+                         @     @@.          . .                   .@#    +@.
+                         .-@  .@.. @         @        @         @...@  .@.
+                           . @: @.   @@@@ .   @      .  . .@@@@    @.+@
+                               @@@@.   @@. @..@     .@ .@..@@ .  @@@@.
+                                 @@@@: @@.  .@ @.:- @ @.  .@- .@@@@
+                                    @@@@@@. .@@..  : @@ . @@@@@@.
+                                     ..@@@@    ..@@...   @@@@..
+                                      .@@@@              @@@@
+                                       .@@@              @@@.
+                                         @@@. .   .. ...@@@.
+                                         +@@@@@@@@@@@@@@@@
+                                          @@@@@@@@@@@@@@@+.
+                                     .    .@@@.      .@@@    .. .
+                                =@ . @@@@@@@@.         @@@@@@@@   @
+                              .@.@.   :  @@@@@%      @@@@@@  -   .@.@
+                              .   @@@     %.  .@@@@@@   ..   ..@@@.
+                               @@.@@.@-   .-   .#  @         @@.@@ @#
+                               ..@@@  .@         ..        .@.. @@@..
+                                . @@   @@@.      ..       @@@  .@#.
+                                 ...@  @ @@@@@@@@..@@@@@@@@ @  @ .
+                                   @ .  +.                 @    @
+                                   .  .  .                ..
+                                     ..  .
+                                      @ . :              %. .@
+                                     @@@ @@-            @=@.@@@.
+                                   @@@...  @           .@  . .@@@ .
+                                 .@@@@@@@@@%            %@@@@@@@@@.</pre>
+        </div>
+        <button id="new-workout-btn">New Workout</button>
+      </div>
+
+      <div id="view-select" class="view hidden">
+        <div id="select-tabs">
+          <button class="select-tab active" data-bank="exercises">Exercises</button>
+          <button class="select-tab" data-bank="stretches">Stretches</button>
+        </div>
+        <div id="search-bar" class="hidden">
+          <input type="search" id="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        <div id="bank-list"></div>
+        <div id="select-actions">
+          <button id="group-btn">Group</button>
+          <button id="search-btn">Search</button>
+          <button id="done-btn">Done</button>
+        </div>
+      </div>
+
+      <div id="view-workout" class="view hidden">
+        <div id="workout-list"></div>
+      </div>
+
+      <div id="view-settings" class="view hidden">
+        <div class="settings-section">
+          <div class="settings-row">
+            <span class="settings-label">Theme</span>
+            <div class="settings-options">
+              <label class="radio-label">
+                <input type="radio" name="theme" value="light"> Light
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="theme" value="dark"> Dark
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <span class="settings-label">Keep screen awake during workout</span>
+            <div class="settings-options">
+              <label class="radio-label">
+                <input type="radio" name="wakelock" value="on"> On
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="wakelock" value="off" checked> Off
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <span class="settings-label">Reset to Defaults</span>
+          </div>
+          <div class="settings-row" id="reset-actions">
+            <button class="reset-btn" data-bank="exercises">Reset exercises</button>
+            <button class="reset-btn" data-bank="stretches">Reset stretches</button>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <span class="settings-label">GitHub Sync</span>
+          </div>
+          <div class="settings-row settings-note">
+            Requires a personal copy of this repo on your GitHub account. Fork the repo, enable GitHub Pages, and use a fine-grained PAT with Contents: Read and Write access. Your PAT is not stored or saved anywhere.
+          </div>
+          <div class="settings-row settings-input-row">
+            <label for="gh-pat">PAT</label>
+            <input type="password" id="gh-pat" placeholder="personal access token" autocomplete="current-password">
+          </div>
+          <div class="settings-row" id="gh-actions">
+            <button class="gh-push-btn" data-bank="exercises">Update exercises.csv</button>
+            <button class="gh-push-btn" data-bank="stretches">Update stretches.csv</button>
+          </div>
+          <div class="settings-row settings-note">
+            Adding, removing, or resetting exercises only affects this session. Sync to GitHub to make changes permanent.
+          </div>
+          <div id="gh-status"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <div id="modal" class="hidden">
+      <div id="modal-box">
+        <div id="modal-name"></div>
+        <button id="modal-confirm">Mark as Done</button>
+        <button id="modal-cancel">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
