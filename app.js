@@ -530,6 +530,45 @@ function setGitHubStatus(msg) {
   document.getElementById('gh-status').textContent = msg;
 }
 
+// --- Pull to refresh ---
+
+function initPullToRefresh() {
+  const view = document.getElementById('view-home');
+  const indicator = document.getElementById('ptr-indicator');
+  const THRESHOLD = 72;
+  let startY = 0;
+  let active = false;
+
+  view.addEventListener('touchstart', e => {
+    if (view.scrollTop === 0) {
+      startY = e.touches[0].clientY;
+      active = true;
+    }
+  }, { passive: true });
+
+  view.addEventListener('touchmove', e => {
+    if (!active) return;
+    const dy = e.touches[0].clientY - startY;
+    indicator.classList.toggle('visible', dy > 16);
+  }, { passive: true });
+
+  view.addEventListener('touchend', e => {
+    if (!active) return;
+    active = false;
+    indicator.classList.remove('visible');
+    const dy = e.changedTouches[0].clientY - startY;
+    if (dy > THRESHOLD) triggerPWAUpdate();
+  });
+}
+
+async function triggerPWAUpdate() {
+  if ('serviceWorker' in navigator) {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (reg) await reg.update();
+  }
+  window.location.reload();
+}
+
 // --- Dark mode ---
 
 function applyDark() {
@@ -656,6 +695,7 @@ async function init() {
     if (e.target === document.getElementById('modal')) hideModal();
   });
 
+  initPullToRefresh();
   showView(state.view);
 
   if ('serviceWorker' in navigator) {
