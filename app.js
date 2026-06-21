@@ -306,7 +306,16 @@ function renderWorkoutView() {
   list.innerHTML = '';
 
   if (state.selectedExercises.length === 0 && state.selectedStretches.length === 0) {
-    list.innerHTML = '<div class="empty-state">No exercises selected</div>';
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = 'No exercises selected';
+    const btn = document.createElement('button');
+    btn.className = 'add-custom-btn';
+    btn.style.marginTop = '16px';
+    btn.textContent = 'Select Exercises';
+    btn.addEventListener('click', () => showView('select'));
+    empty.appendChild(btn);
+    list.appendChild(empty);
     return;
   }
 
